@@ -22,7 +22,7 @@ const filterTodoBy = (element, index) => {
       break;
 
     default:
-      return element.isCompleted || ~element.isCompleted;
+      return element.isCompleted || !element.isCompleted;
       break;
   }
 };
