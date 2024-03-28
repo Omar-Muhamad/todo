@@ -6,18 +6,19 @@ const todo = {
 
 // const todos = JSON.parse(localStorage.getItem('todos'))
 
-const filteredTodos = (index) => {
+const filteredTodos = (status) => {
   const todos = JSON.parse(localStorage.getItem("todos"));
-  let filteredTodo = todos.filter((element) => filterTodoBy(element, index));
+  let filteredTodo = todos.filter((element) => filterTodoBy(element, status));
   return filteredTodo;
 };
-const filterTodoBy = (element, index) => {
-  switch (index) {
-    case 0:
+
+const filterTodoBy = (element, status) => {
+  switch (status) {
+    case 'completed':
       return element.isCompleted;
       break;
 
-    case 1:
+    case 'active':
       return !element.isCompleted;
       break;
 
@@ -57,6 +58,13 @@ renderTodos();
 
 // addTodo function
 
+const addTodo = (todoElement) => {
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  todos.push(todoElement);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  renderTodos();
+}
+
 // toggleTodoStatus function
 const toggleTodoStatus = (todoElement) => {
   const todos = JSON.parse(localStorage.getItem("todos"));
@@ -70,7 +78,12 @@ const toggleTodoStatus = (todoElement) => {
 };
 
 // deleteTodo function
-
+const deleteTodo = (todoElement) => {
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  todos.filter(element => element.index === todoElement.index);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  renderTodos();
+}
 //  clearAllCompleted
 const clearAllCompleted = () => {
   const todos = JSON.parse(localStorage.getItem("todos"));
