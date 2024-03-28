@@ -1,4 +1,11 @@
-const filteredTodos = (status) => {
+const filteredTodos = (status = "", event) => {
+  const filterList = document.querySelectorAll(".filter-list li");
+  filterList.forEach((li) => {
+    li.classList.remove("active");
+  });
+  const getActiveListItem = event.target;
+  getActiveListItem.classList.add("active");
+
   const todos = JSON.parse(localStorage.getItem("todos"));
   let filteredTodo = todos.filter((element) => filterTodoBy(element, status));
   renderTodos(filteredTodo);
@@ -29,15 +36,17 @@ const renderTodos = (todos) => {
     .forEach((todo) => {
       const checked = todo.isCompleted;
       const item = `
-      <li class="item bg-blue-500 mb-5" draggable="true" data-index=${
+      <li class="item flex justify-between w-full p-5  border-b-2 border-b-gray-900 cursor-pointer" draggable="true" data-index=${
         todo.index
       }>
         <input  ${
           checked === true ? "checked" : ""
-        } type="checkbox" class="checkBox" onchange="toggleTodoStatus(${
+        } type="checkbox" class="checkBox rounded-lg cursor-pointer" onchange="toggleTodoStatus(${
         todo.index
       })" data-index=${todo.index}>
-        <p type="text" class="toDoText">${todo.description}</p>
+        <p type="text" class="toDoText ${
+          checked === true ? "line-through" : ""
+        }  w-full ml-5">${todo.description}</p>
         <button class="deleteBtn" onclick="deleteTodo(${todo.index})" id=${
         todo.index
       }><i class="far fa-trash-alt" ></i></button>
@@ -45,6 +54,8 @@ const renderTodos = (todos) => {
     `;
       todoList.innerHTML += item;
     });
+  const itemsLeft = document.getElementsByClassName("items-left")[0];
+  itemsLeft.innerHTML = `${todos.length} items left`;
 };
 
 // addTodo function
@@ -86,12 +97,14 @@ const clearAllCompleted = () => {
 
 const addTodoHandler = () => {
   const todoInput = document.getElementById("todo-input");
+  if (todoInput.value.trim() === "") return;
   const newTodo = {
     index: new Date().getTime(),
     description: todoInput.value,
     isCompleted: false,
   };
   addTodo(newTodo);
+  todoInput.value = "";
 };
 const clearCompletedHandler = () => {
   clearAllCompleted();

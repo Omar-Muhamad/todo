@@ -12,38 +12,62 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              listBgColor: "#25273c",
+            },
+          },
+        },
+      };
+    </script>
     <title>Todo app</title>
   </head>
-  <body>
-    <h1 class="">TODO</h1>
-    <div class="">
-      <input type="text" id="todo-input" />
-      <button type="button" id="add-btn" onclick="addTodoHandler()">
-        <i class="fa-solid fa-plus"></i>
-      </button>
-    </div>
-    <ul class="todo-list">
-      <!-- <li class="flex justify-between items-center">
-      <input type="checkbox" name="" id="">
-      <p></p>
-      <button type="button"><i class="fa-solid fa-xmark"></i></button>
-    </li> -->
-    </ul>
-    <div>
-      <p>item left</p>
-      <button
-        type="button"
-        id="clear-all-btn"
-        onclick="clearCompletedHandler()"
+  <body class="h-screen bg-black text-white">
+    <div class="flex flex-col w-1/2 md:w-1/3 mx-auto pt-20">
+      <h1 class="w-full text-2xl tracking-widest pb-5">TODO</h1>
+      <div class="flex justify-between bg-listBgColor rounded-lg p-5 mb-5">
+        <input
+          class="w-full mr-2 bg-transparent focus:outline-none"
+          placeholder="Create a new Todo"
+          type="text"
+          id="todo-input"
+        />
+        <button type="button" id="add-btn" onclick="addTodoHandler()">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+      <div class="bg-listBgColor rounded-lg mb-5">
+        <ul class="todo-list"></ul>
+        <div class="flex justify-between w-full p-5">
+          <p class="items-left"></p>
+          <button
+            type="button"
+            id="clear-all-btn"
+            onclick="clearCompletedHandler()"
+          >
+            Clear All
+          </button>
+        </div>
+      </div>
+
+      <ul
+        class="filter-list flex justify-center group gap-2 p-5 w-full bg-listBgColor rounded-lg"
       >
-        Clear All
-      </button>
+        <li class="active cursor-pointer" onclick="filteredTodos('',event)">
+          All
+        </li>
+        <li class="cursor-pointer" onclick="filteredTodos('active',event)">
+          Active
+        </li>
+        <li class="cursor-pointer" onclick="filteredTodos('completed',event)">
+          Completed
+        </li>
+      </ul>
     </div>
-    <div>
-      <button onclick="filteredTodos()">All</button>
-      <button onclick="filteredTodos('active')">Active</button>
-      <button onclick="filteredTodos('completed')">Completed</button>
-    </div>
+
     <script src="index.js"></script>
     <script src="drag-list.js"></script>
   </body>

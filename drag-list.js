@@ -49,7 +49,16 @@ todoList.addEventListener("dragover", (e) => {
 
 const getElementAfter = (clientY) => {
   const siblings = [...document.querySelectorAll(".item:not(.draggable)")];
-  return siblings.find((element) => {
-    return clientY <= element.offsetTop + element.offsetHeight / 2;
-  });
+  return siblings.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = clientY - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    { offset: Number.NEGATIVE_INFINITY }
+  ).element;
 };
