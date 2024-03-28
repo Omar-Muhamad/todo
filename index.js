@@ -25,11 +25,13 @@ const renderTodos = (todos) => {
   todoList.innerHTML = "";
   if (!todos.length) return;
   todos
-    .sort((a, b) => a.index - b.index)
+    // .sort((a, b) => a.index - b.index)
     .forEach((todo) => {
       const checked = todo.isCompleted;
       const item = `
-      <li class="item" data-index=${todo.index}>
+      <li class="item bg-blue-500 mb-5" draggable="true" data-index=${
+        todo.index
+      }>
         <input  ${
           checked === true ? "checked" : ""
         } type="checkbox" class="checkBox" onchange="toggleTodoStatus(${
