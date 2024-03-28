@@ -18,7 +18,9 @@
     <h1 class="">TODO</h1>
     <div class="">
       <input type="text" id="todo-input" />
-      <button type="button" id="add-btn" onclick='addTodoHandler()'><i class="fa-solid fa-plus"></i></button>
+      <button type="button" id="add-btn" onclick="addTodoHandler()">
+        <i class="fa-solid fa-plus"></i>
+      </button>
     </div>
     <ul class="todo-list">
       <!-- <li class="flex justify-between items-center">
@@ -27,6 +29,16 @@
       <button type="button"><i class="fa-solid fa-xmark"></i></button>
     </li> -->
     </ul>
+    <div>
+      <p>item left</p>
+      <button
+        type="button"
+        id="clear-all-btn"
+        onclick="clearCompletedHandler()"
+      >
+        Clear All
+      </button>
+    </div>
     <div>
       <button>All</button>
       <button>Active</button>
