@@ -1,7 +1,7 @@
 const filteredTodos = (status) => {
   const todos = JSON.parse(localStorage.getItem("todos"));
   let filteredTodo = todos.filter((element) => filterTodoBy(element, status));
-  return filteredTodo;
+  renderTodos(filteredTodo);
 };
 
 const filterTodoBy = (element, status) => {
@@ -99,6 +99,6 @@ const main = () => {
   const todos =
     JSON.parse(localStorage.getItem("todos")) ||
     localStorage.setItem("todos", JSON.stringify([]));
-  if (!todos.length) renderTodos(todos);
+  if (todos.length > 0) renderTodos(todos);
 };
-main();
+window.onload = main();
