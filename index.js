@@ -6,15 +6,31 @@ const todo = {
 
 // const todos = JSON.parse(localStorage.getItem('todos'))
 
-// const filteredTodos = () => {
+const filteredTodos = (index) => {
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  let filteredTodo = todos.filter((element) => filterTodoBy(element, index));
+  return filteredTodo;
+};
+const filterTodoBy = (element, index) => {
+  switch (index) {
+    case 0:
+      return element.isCompleted;
+      break;
 
-// }
+    case 1:
+      return !element.isCompleted;
+      break;
+
+    default:
+      return element.isCompleted || ~element.isCompleted;
+      break;
+  }
+};
 
 localStorage.setItem("todos", JSON.stringify([todo]));
 
 const renderTodos = () => {
   const todos = JSON.parse(localStorage.getItem("todos"));
-  console.log(todos);
   const todoList = document.getElementsByClassName("todo-list")[0];
   todoList.innerHTML = "";
   if (!todos.length) return;
