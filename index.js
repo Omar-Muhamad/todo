@@ -1,10 +1,5 @@
-const todo = {
-  index: 1,
-  description: "asdfghj",
-  isCompleted: false,
-};
 
-// const todos = JSON.parse(localStorage.getItem('todos'))
+
 
 const filteredTodos = (status) => {
   const todos = JSON.parse(localStorage.getItem("todos"));
@@ -28,10 +23,7 @@ const filterTodoBy = (element, status) => {
   }
 };
 
-localStorage.setItem("todos", JSON.stringify([todo]));
-
-const renderTodos = () => {
-  const todos = JSON.parse(localStorage.getItem("todos"));
+const renderTodos = (todos) => {
   const todoList = document.getElementsByClassName("todo-list")[0];
   todoList.innerHTML = "";
   if (!todos.length) return;
@@ -45,16 +37,12 @@ const renderTodos = () => {
           checked === true ? "checked" : ""
         } type="checkbox" class="checkBox" data-index=${todo.index}>
         <p type="text" class="toDoText">${todo.description}</p>
-        <button class="deleteBtn" data-index=${
-          todo.index
-        }><i class="far fa-trash-alt" ></i></button>
+        <button class="deleteBtn" id=${todo.index}><i class="far fa-trash-alt" ></i></button>
       </li>
     `;
       todoList.innerHTML += item;
     });
 };
-
-renderTodos();
 
 // addTodo function
 
@@ -62,7 +50,7 @@ const addTodo = (todoElement) => {
   const todos = JSON.parse(localStorage.getItem("todos"));
   todos.push(todoElement);
   localStorage.setItem("todos", JSON.stringify(todos));
-  renderTodos();
+  renderTodos(todos);
 }
 
 // toggleTodoStatus function
@@ -74,16 +62,17 @@ const toggleTodoStatus = (todoElement) => {
     }
   });
   localStorage.setItem("todos", JSON.stringify(todos));
-  renderTodos();
+  renderTodos(todos);
 };
 
 // deleteTodo function
-const deleteTodo = (todoElement) => {
+const deleteTodo = () => {
   const todos = JSON.parse(localStorage.getItem("todos"));
-  todos.filter(element => element.index === todoElement.index);
+  todos.filter(element => element.index === todoIndex);
   localStorage.setItem("todos", JSON.stringify(todos));
-  renderTodos();
+  renderTodos(todos);
 }
+
 //  clearAllCompleted
 const clearAllCompleted = () => {
   const todos = JSON.parse(localStorage.getItem("todos"));
@@ -91,5 +80,21 @@ const clearAllCompleted = () => {
     element.isCompleted = false;
   });
   localStorage.setItem("todos", JSON.stringify(todos));
-  renderTodos();
+  renderTodos(todos);
 };
+
+const addTodoHandler = () => {
+  const todoInput = document.getElementById('todo-input')
+  const newTodo = {
+    index: new Date(),
+    description: todoInput.value,
+    isCompleted: false
+  }
+  addTodo(newTodo)
+}
+
+const main = () => {
+  const todos = JSON.parse(localStorage.getItem('todos')) || localStorage.setItem("todos", JSON.stringify([]));
+  if (!todos.length) renderTodos(todos)
+}
+main()
