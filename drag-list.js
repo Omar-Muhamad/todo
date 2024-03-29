@@ -3,12 +3,12 @@ let items;
 let fromIndex;
 const dragstart = (e) => {
   const draggableItem = e.target.closest("li");
-  draggableItem.classList.add("draggable");
+  setTimeout(() => draggableItem.classList.add("draggable"), 0);
   fromIndex = e.target.dataset.index;
 };
 const dropEnd = (e) => {
   const draggableItem = e.target.closest("li");
-  draggableItem.classList.remove("draggable");
+  setTimeout(() => draggableItem.classList.remove("draggable"), 0);
 };
 const dropOver = (e) => {
   e.preventDefault();
