@@ -1,52 +1,41 @@
-const items = document.querySelectorAll(".item");
-const todoList = document.querySelector(".todo-list");
-const todos =
-  JSON.parse(localStorage.getItem("todos")) ||
-  localStorage.setItem("todos", JSON.stringify([]));
-// Add Draggable Class if the item is start dragging and remove it when end of drag
-items.forEach((item) => {
-  item.addEventListener("dragstart", () => {
-    item.classList.add("draggable");
-  });
-
-  item.addEventListener("dragend", () => {
-    item.classList.remove("draggable");
-  });
-});
-// Put the dragged item in the specific place
-todoList.addEventListener("dragover", (e) => {
+let todoList;
+let items;
+let fromIndex;
+const dragstart = (e) => {
+  const draggableItem = e.target.closest("li");
+  draggableItem.classList.add("draggable");
+  fromIndex = e.target.dataset.index;
+};
+const dropEnd = (e) => {
+  const draggableItem = e.target.closest("li");
+  draggableItem.classList.remove("draggable");
+};
+const dropOver = (e) => {
   e.preventDefault();
+};
+const drop = (e) => {
+  e.preventDefault();
+  const todos =
+    JSON.parse(localStorage.getItem("todos")) ||
+    localStorage.setItem("todos", JSON.stringify([]));
   const draggableItem = document.querySelector(".draggable");
   const getElementsAfter = getElementAfter(e.clientY);
-  const draggableIndex = todos.findIndex(
-    (element) => element.index === +draggableItem.dataset.index
-  );
+  let toIndex = e.target.closest("li").dataset.index;
   // Append dragged before the targetElement and set the localStorage, if The targetElement is the last one we will append dragged to be the last one
-  if (getElementsAfter != null) {
-    const getElementsAfterIndex = todos.findIndex(
-      (element) => element.index === +getElementsAfter.dataset.index
-    );
-
+  if (getElementsAfter !== null) {
     todoList.insertBefore(draggableItem, getElementsAfter);
-    if (draggableIndex !== -1 && getElementsAfterIndex !== -1) {
-      //   [todos[getElementsAfterIndex], todos[draggableIndex]] = [
-      //     todos[draggableIndex],
-      //     todos[getElementsAfterIndex],
-      //   ];
-
-      const movedTodo = todos.splice(draggableIndex, 1)[0];
-      todos.splice(getElementsAfterIndex, 0, movedTodo);
-    }
   } else {
     todoList.appendChild(draggableItem);
-    if (draggableIndex !== -1) {
-      const movedTodo = todos.splice(draggableIndex, 1)[0];
-      todos.push(movedTodo);
-    }
   }
-  localStorage.setItem("todos", JSON.stringify(todos));
-});
-
+  // Get Todos Index that referee to the object.index property in todos
+  const getFromIndexInTodos = getSpecificIndex(todos, +fromIndex);
+  const getToIndexInTodos = getSpecificIndex(todos, +toIndex);
+  swapElementsInTodosLocalStorage(
+    todos,
+    getFromIndexInTodos,
+    getToIndexInTodos
+  );
+};
 const getElementAfter = (clientY) => {
   const siblings = [...document.querySelectorAll(".item:not(.draggable)")];
   return siblings.reduce(
@@ -62,3 +51,22 @@ const getElementAfter = (clientY) => {
     { offset: Number.NEGATIVE_INFINITY }
   ).element;
 };
+const getSpecificIndex = (todos, index) => {
+  return todos.findIndex((element) => element.index === index);
+};
+const swapElementsInTodosLocalStorage = (todos, fromIndex, toIndex) => {
+  const movedTodo = todos.splice(fromIndex, 1)[0];
+  todos.splice(toIndex, 0, movedTodo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+const dragAndDropListeners = () => {
+  items = document.querySelectorAll(".item");
+  todoList = document.querySelector(".todo-list");
+  fromIndex;
+  todoList.addEventListener("dragstart", dragstart);
+  todoList.addEventListener("dragend", dropEnd);
+  todoList.addEventListener("dragover", dropOver);
+  todoList.addEventListener("drop", drop);
+};
+dragAndDropListeners();

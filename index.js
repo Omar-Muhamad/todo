@@ -114,6 +114,6 @@ const main = () => {
   const todos =
     JSON.parse(localStorage.getItem("todos")) ||
     localStorage.setItem("todos", JSON.stringify([]));
-  if (todos.length > 0) renderTodos(todos);
+  if (todos?.length > 0) renderTodos(todos);
 };
 window.onload = main();
