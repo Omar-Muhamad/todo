@@ -36,12 +36,13 @@ const renderTodos = (todos) => {
     .forEach((todo) => {
       const checked = todo.isCompleted;
       const item = `
-      <li class="item flex justify-between w-full p-5  border-b-2 border-b-gray-900 cursor-pointer" draggable="true" data-index=${
+      <li class="w-full bg-listBgColor py-4 text-sm rounded-t-md border-b border-lGrayBlue cursor-pointer" draggable="true" data-index=${
         todo.index
       }>
+        <div class='flex px-4'>
         <input  ${
           checked === true ? "checked" : ""
-        } type="checkbox" class="checkBox rounded-lg cursor-pointer" onchange="toggleTodoStatus(${
+        } type="checkbox" class="checkBox cursor-pointer" onchange="toggleTodoStatus(${
         todo.index
       })" data-index=${todo.index}>
         <p type="text" class="toDoText ${
@@ -49,7 +50,8 @@ const renderTodos = (todos) => {
         }  w-full ml-5">${todo.description}</p>
         <button class="deleteBtn" onclick="deleteTodo(${todo.index})" id=${
         todo.index
-      }><i class="far fa-trash-alt" ></i></button>
+      }><i class="fa-solid fa-x text-lGrayBlue"></i></button>
+        </div>
       </li>
     `;
       todoList.innerHTML += item;
@@ -95,17 +97,20 @@ const clearAllCompleted = () => {
   renderTodos(filteredTodos);
 };
 
-const addTodoHandler = () => {
-  const todoInput = document.getElementById("todo-input");
-  if (todoInput.value.trim() === "") return;
-  const newTodo = {
-    index: new Date().getTime(),
-    description: todoInput.value,
-    isCompleted: false,
-  };
-  addTodo(newTodo);
-  todoInput.value = "";
-};
+const todoInput = document.getElementById("todo-input");
+todoInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    if (todoInput.value.trim() === "") return;
+    const newTodo = {
+      index: new Date().getTime(),
+      description: todoInput.value,
+      isCompleted: false,
+    };
+    addTodo(newTodo);
+    todoInput.value = "";
+  }
+});
+
 const clearCompletedHandler = () => {
   clearAllCompleted();
 };
