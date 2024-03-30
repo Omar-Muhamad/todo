@@ -25,8 +25,8 @@
             colors: {
               bgDark: "hsl(235, 21%, 11%)",
               listBgColor: "hsl(235, 24%, 19%)",
-              lGrayBlue: 'hsl(234, 11%, 52%)',
-              textDark: 'hsl(234, 39%, 85%)'
+              lGrayBlue: "hsl(234, 11%, 52%)",
+              textDark: "hsl(234, 39%, 85%)",
             },
             backgroundImage: {
               "mobile-dark": "url('./images/bg-mobile-dark.jpg')",
@@ -61,24 +61,18 @@
         <ul class="todo-list"></ul>
         <div class="flex justify-between py-4 px-4 text-lGrayBlue">
           <p class="items-left"></p>
-          <button
-            type="button"
-            id="clear-all-btn"
-            onclick="clearCompletedHandler()"
-          >
+          <button type="button" id="clear-completed-btn">
             Clear Completed
           </button>
         </div>
       </div>
 
-      <ul class="w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue">
-        <li class="active cursor-pointer" onclick="filteredTodos('',event)">
-          All
-        </li>
-        <li class="cursor-pointer" onclick="filteredTodos('active',event)">
-          Active
-        </li>
-        <li class="cursor-pointer" onclick="filteredTodos('completed',event)">
+      <ul
+        class="filter-list w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue"
+      >
+        <li class="active cursor-pointer" data-status="">All</li>
+        <li class="cursor-pointer" data-status="active">Active</li>
+        <li class="completed cursor-pointer" data-status="completed">
           Completed
         </li>
       </ul>
