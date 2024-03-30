@@ -1,36 +1,6 @@
-const filteredTodos = (status = "", event) => {
-  const filterList = document.querySelectorAll(".filter-list li");
-  filterList.forEach((li) => {
-    li.classList.remove("active");
-  });
-  const getActiveListItem = event.target;
-  getActiveListItem.classList.add("active");
-
-  const todos = JSON.parse(localStorage.getItem("todos"));
-  let filteredTodo = todos.filter((element) => filterTodoBy(element, status));
-  renderTodos(filteredTodo);
-};
-
-const filterTodoBy = (element, status) => {
-  switch (status) {
-    case "completed":
-      return element.isCompleted;
-      break;
-
-    case "active":
-      return !element.isCompleted;
-      break;
-
-    default:
-      return element.isCompleted || !element.isCompleted;
-      break;
-  }
-};
-
 const renderTodos = (todos) => {
   const todoList = document.getElementsByClassName("todo-list")[0];
   todoList.innerHTML = "";
-  if (!todos.length) return;
   todos
     // .sort((a, b) => a.index - b.index)
     .forEach((todo) => {
@@ -56,8 +26,9 @@ const renderTodos = (todos) => {
     `;
       todoList.innerHTML += item;
     });
+  console.log(todos);
   const itemsLeft = document.getElementsByClassName("items-left")[0];
-  itemsLeft.innerHTML = `${todos.length} items left`;
+  itemsLeft.innerHTML = `${todos?.length} items left`;
 };
 
 // addTodo function
@@ -97,8 +68,7 @@ const clearAllCompleted = () => {
   renderTodos(filteredTodos);
 };
 
-const todoInput = document.getElementById("todo-input");
-todoInput.addEventListener("keydown", function (event) {
+const addTodoHandler = (event) => {
   if (event.key === "Enter") {
     if (todoInput.value.trim() === "") return;
     const newTodo = {
@@ -109,11 +79,51 @@ todoInput.addEventListener("keydown", function (event) {
     addTodo(newTodo);
     todoInput.value = "";
   }
-});
-
+};
 const clearCompletedHandler = () => {
   clearAllCompleted();
 };
+const filteredTodosHandler = (status = "", event) => {
+  const filterList = document.querySelectorAll(".filter-list li");
+  filterList.forEach((li) => {
+    li.classList.remove("active");
+  });
+  const getActiveListItem = event.target;
+  getActiveListItem.classList.add("active");
+
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  let filteredTodo = todos.filter((element) => filterTodoBy(element, status));
+  renderTodos(filteredTodo);
+};
+
+const filterTodoBy = (element, status) => {
+  switch (status) {
+    case "completed":
+      return element.isCompleted;
+      break;
+
+    case "active":
+      return !element.isCompleted;
+      break;
+
+    default:
+      return element.isCompleted || !element.isCompleted;
+      break;
+  }
+};
+
+const filterListItems = document.querySelectorAll(".filter-list li");
+filterListItems.forEach((item) => {
+  item.addEventListener("click", function (e) {
+    const status = this.getAttribute("data-status");
+    filteredTodosHandler(status, e);
+  });
+});
+const todoInput = document.getElementById("todo-input");
+todoInput.addEventListener("keydown", addTodoHandler);
+
+const clearBtn = document.getElementById("clear-completed-btn");
+clearBtn.addEventListener("click", clearCompletedHandler);
 
 const main = () => {
   const todos =
