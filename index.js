@@ -36,7 +36,7 @@ const renderTodos = (todos) => {
     .forEach((todo) => {
       const checked = todo.isCompleted;
       const item = `
-      <li class="w-full bg-listBgColor py-4 text-sm rounded-t-md border-b border-lGrayBlue cursor-pointer" draggable="true" data-index=${
+      <li class="item w-full bg-listBgColor py-4 text-sm rounded-t-md border-b border-lGrayBlue cursor-pointer" draggable="true" data-index=${
         todo.index
       }>
         <div class='flex px-4'>
