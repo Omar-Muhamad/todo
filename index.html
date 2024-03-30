@@ -20,6 +20,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
@@ -44,38 +45,42 @@
     <title>Todo app</title>
   </head>
   <body
-    class="bg-bgDark bg-mobile-dark bg-no-repeat bg-top bg-contain text-white font-sans"
+    class="bg-bgDark bg-mobile-dark md:bg-desktop-dark bg-no-repeat bg-top bg-contain text-white font-sans"
   >
-    <div class="w-[86%] mt-12 mx-auto">
-      <div class="w-full flex justify-between items-center">
-        <h1 class="text-3xl font-bold tracking-[.8rem]">TODO</h1>
-        <i class="fa-regular fa-sun fa-lg"></i>
-      </div>
-      <input
-        class="w-full mt-7 bg-listBgColor rounded-md px-5 py-4 text-sm outline-none"
-        placeholder="Create a new Todo"
-        type="text"
-        id="todo-input"
-      />
-      <div class="mt-4 bg-listBgColor rounded-md text-textDark">
-        <ul class="todo-list"></ul>
-        <div class="flex justify-between py-4 px-4 text-lGrayBlue">
-          <p class="items-left">0 items left</p>
-          <button type="button" id="clear-completed-btn">
-            Clear Completed
-          </button>
+    <div class="">
+      <div class="w-[86%] md:w-[40%] mt-12 md:mt-16 mx-auto">
+        <div class="w-full flex justify-between items-center">
+          <h1 class="text-3xl font-bold tracking-[.8rem]">
+            TODO
+          </h1>
+          <i class="fa-regular fa-sun fa-lg"></i>
         </div>
-      </div>
+        <input
+          class="w-full mt-7 bg-listBgColor rounded-md px-5 py-4 text-sm outline-none"
+          placeholder="Create a new Todo"
+          type="text"
+          id="todo-input"
+        />
+        <div class="mt-4 bg-listBgColor rounded-md text-textDark">
+          <ul class="todo-list"></ul>
+          <div class="flex justify-between py-4 px-4 text-lGrayBlue">
+            <p class="items-left">0 items left</p>
+            <button type="button" id="clear-completed-btn">
+              Clear Completed
+            </button>
+          </div>
+        </div>
 
-      <ul
-        class="filter-list w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue"
-      >
-        <li class="active cursor-pointer" data-status="">All</li>
-        <li class="cursor-pointer" data-status="active">Active</li>
-        <li class="completed cursor-pointer" data-status="completed">
-          Completed
-        </li>
-      </ul>
+        <ul
+          class="filter-list w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue"
+        >
+          <li class="active cursor-pointer" data-status="">All</li>
+          <li class="cursor-pointer" data-status="active">Active</li>
+          <li class="completed cursor-pointer" data-status="completed">
+            Completed
+          </li>
+        </ul>
+      </div>
     </div>
 
     <script type="module" src="index.js"></script>
