@@ -38,7 +38,6 @@ const drop = (e) => {
 };
 const getElementAfter = (clientY) => {
   const siblings = [...document.querySelectorAll(".item:not(.draggable)")];
-  console.log(siblings);
   return siblings.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();
@@ -70,4 +69,4 @@ const dragAndDropListeners = () => {
   todoList.addEventListener("dragover", dropOver);
   todoList.addEventListener("drop", drop);
 };
-dragAndDropListeners();
+export default dragAndDropListeners;
