@@ -26,14 +26,21 @@
             colors: {
               bgDark: "hsl(235, 21%, 11%)",
               listBgColor: "hsl(235, 24%, 19%)",
-              lGrayBlue: "hsl(234, 11%, 52%)",
-              textDark: "hsl(234, 39%, 85%)",
+              lGrayBlue: "hsl(233, 14%, 35%)",
+              lGrayBlueHover: "hsl(236, 33%, 92%)",
+              textLightInDark: "hsl(234, 39%, 85%)",
+              checkBoxFromColor: "hsl(192, 100%, 67%)",
+              checkBoxToColor: "hsl(280, 87%, 65%)",
             },
             backgroundImage: {
               "mobile-dark": "url('./images/bg-mobile-dark.jpg')",
               "mobile-light": "url('./images/bg-mobile-light.jpg')",
               "desktop-dark": "url('./images/bg-desktop-dark.jpg')",
               "desktop-light": "url('./images/bg-desktop-light.jpg')",
+            },
+            backgroundSize: {
+              mobile: "100% 200px",
+              desktop: "100% 300px",
             },
             fontFamily: {
               sans: ["Josefin Sans", "sans-serif"],
@@ -45,38 +52,85 @@
     <title>Todo app</title>
   </head>
   <body
-    class="bg-bgDark bg-mobile-dark md:bg-desktop-dark bg-no-repeat bg-top bg-contain text-white font-sans"
+    class="bg-bgDark bg-mobile-dark md:bg-desktop-dark bg-no-repeat bg-top bg-mobile md:bg-desktop text-white font-sans"
   >
     <div class="">
-      <div class="w-[86%] md:w-[40%] mt-12 md:mt-16 mx-auto">
+      <div
+        class="w-[86%] min-[500px]:w-[50%] md:w-[37.5%] mt-12 md:mt-[78px] mx-auto"
+      >
         <div class="w-full flex justify-between items-center">
-          <h1 class="text-3xl font-bold tracking-[.8rem]">
+          <h1
+            class="text-[30px] md:text-[32px] font-bold tracking-[.8rem] leading-none"
+          >
             TODO
           </h1>
           <i class="fa-regular fa-sun fa-lg"></i>
         </div>
         <input
-          class="w-full mt-7 bg-listBgColor rounded-md px-5 py-4 text-sm outline-none"
+          class="w-full text-textLightInDark mt-8 md:mt-[46px] bg-listBgColor rounded-md px-5 py-[14px] md:py-[22.5px] text-sm outline-none"
           placeholder="Create a new Todo"
           type="text"
           id="todo-input"
         />
-        <div class="mt-4 bg-listBgColor rounded-md text-textDark">
+        <div
+          class="mt-[16px] md:mt-[25px] bg-listBgColor rounded-md text-textLightInDark"
+        >
           <ul class="todo-list"></ul>
-          <div class="flex justify-between py-4 px-4 text-lGrayBlue">
-            <p class="items-left">0 items left</p>
-            <button type="button" id="clear-completed-btn">
+          <div
+            class="flex justify-between items-center py-[10px] px-4 text-lGrayBlue text-sm md:text-[10px] lg:text-sm"
+          >
+            <p class="items-left font-bold">0 items left</p>
+            <ul
+              class="filter-list hidden md:flex bg-listBgColor flex justify-center gap-4"
+            >
+              <li
+                class="active cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+                data-status=""
+              >
+                All
+              </li>
+              <li
+                class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+                data-status="active"
+              >
+                Active
+              </li>
+              <li
+                class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+                data-status="completed"
+              >
+                Completed
+              </li>
+            </ul>
+            <button
+              class="font-bold hover:text-lGrayBlueHover"
+              type="button"
+              id="clear-completed-btn"
+            >
               Clear Completed
             </button>
           </div>
         </div>
 
         <ul
-          class="filter-list w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue"
+          class="filter-list md:hidden w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue"
         >
-          <li class="active cursor-pointer" data-status="">All</li>
-          <li class="cursor-pointer" data-status="active">Active</li>
-          <li class="completed cursor-pointer" data-status="completed">
+          <li
+            class="active cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+            data-status=""
+          >
+            All
+          </li>
+          <li
+            class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+            data-status="active"
+          >
+            Active
+          </li>
+          <li
+            class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+            data-status="completed"
+          >
             Completed
           </li>
         </ul>

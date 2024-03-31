@@ -12,7 +12,8 @@ const renderTodos = (todos) => {
         "item",
         "w-full",
         "bg-listBgColor",
-        "py-4",
+        "py-[14px]",
+        "md:py-[22.5px]",
         "text-sm",
         "rounded-t-md",
         "border-b",
@@ -23,16 +24,28 @@ const renderTodos = (todos) => {
       listItem.setAttribute("data-index", todo.index);
 
       const listItemContent = `
-          <div class='flex px-4'>
-            <input ${
-              checked ? "checked" : ""
-            } type="checkbox" class="checkBox cursor-pointer" data-index=${
+          <div class='flex items-center px-4'>
+            <label class="w-full break-all flex items-center cursor-pointer ${
+              checked ? "line-through text-lGrayBlue" : ""
+            }  ">
+            <input ${checked ? "checked" : ""} type="checkbox" id="${
+        todo.index
+      }" class="checkBox relative peer appearance-none  w-[24px] h-[20px] border border-lGrayBlue rounded-full bg-inherit checked:bg-gradient-to-r from-checkBoxFromColor to-checkBoxToColor hover:border-checkBoxFromColor checked:border-0 cursor-pointer" data-index=${
         todo.index
       }>
-            <p type="text" class="toDoText ${
-              checked ? "line-through" : ""
-            } w-full ml-5">${todo.description}</p>
-            <button class="deleteBtn" id=${
+        <svg xmlns="http://www.w3.org/2000/svg" 
+        class="absolute text-textLightInDark font-bold hidden peer-checked:block icon icon-tabler
+         icon-tabler-check fill-" width="15" height="15" viewBox="0 0 15 24" 
+        stroke-width="2.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M5 12l5 5l10 -10" />
+        </svg>
+    
+          
+              <span class="w-full mx-3">${todo.description}</span>
+            </label>
+           
+            <button class="deleteBtn md:hidden " id=${
               todo.index
             }><i class="fa-solid fa-x text-lGrayBlue"></i></button>
           </div>
@@ -57,3 +70,8 @@ const renderTodos = (todos) => {
   itemsLeft.innerHTML = `${todos?.length} items left`;
 };
 export default renderTodos;
+{
+  /* <i class="fa-solid fa-check fa-sm  ${
+  checked ? "block" : "hidden"
+} absolute  w-[24px] h-[24px] rounded-full  pointer-events-none font-bold text-center pt-2.5 "></i> */
+}
