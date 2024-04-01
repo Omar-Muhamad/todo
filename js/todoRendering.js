@@ -12,6 +12,7 @@ const renderTodos = (todos) => {
         "item",
         "w-full",
         "bg-listBgColor",
+        "dark:bg-listBgColorLight",
         "py-[14px]",
         "md:py-[22.5px]",
         "text-sm",

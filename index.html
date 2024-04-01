@@ -29,6 +29,10 @@
               lGrayBlue: "hsl(233, 14%, 35%)",
               lGrayBlueHover: "hsl(236, 33%, 92%)",
               textLightInDark: "hsl(234, 39%, 85%)",
+              bgLight: "hsl(236, 33%, 92%)",
+              listBgColorLight: "hsl(0, 0%, 98%)",
+              textDarkInLight: "hsl(236, 9%, 61%)",
+              lGrayLightHover: "hsl(235, 19%, 35%)",
               checkBoxFromColor: "hsl(192, 100%, 67%)",
               checkBoxToColor: "hsl(280, 87%, 65%)",
             },
@@ -52,7 +56,7 @@
     <title>Todo app</title>
   </head>
   <body
-    class="bg-bgDark bg-mobile-dark md:bg-desktop-dark bg-no-repeat bg-top bg-mobile md:bg-desktop text-white font-sans"
+    class="bg-bgDark dark:bg-bgLight bg-mobile-dark dark:bg-mobile-light md:dark:bg-desktop-light md:bg-desktop-dark bg-no-repeat bg-top bg-mobile md:bg-desktop text-white font-sans"
   >
     <div class="">
       <div
@@ -64,46 +68,53 @@
           >
             TODO
           </h1>
-          <i class="fa-regular fa-sun fa-lg"></i>
+
+          <button class="dark-mode-toggle">
+            <i
+              class="toggle-dark fa-solid fa-moon fa-lg cursor-pointer"
+              style="color: #ffffff"
+            ></i>
+            <i class="toggle-light fa-regular fa-sun fa-lg cursor-pointer"></i>
+          </button>
         </div>
         <input
-          class="w-full text-textLightInDark mt-8 md:mt-[46px] bg-listBgColor rounded-md px-5 py-[14px] md:py-[22.5px] text-sm outline-none"
+          class="w-full text-textLightInDark dark:text-textDarkInLight mt-8 md:mt-[46px] bg-listBgColor dark:bg-listBgColorLight rounded-md px-5 py-[14px] md:py-[22.5px] text-sm outline-none"
           placeholder="Create a new Todo"
           type="text"
           id="todo-input"
         />
         <div
-          class="mt-[16px] md:mt-[25px] bg-listBgColor rounded-md text-textLightInDark"
+          class="mt-[16px] md:mt-[25px] bg-listBgColor dark:bg-listBgColorLight rounded-md text-textLightInDark dark:text-textDarkInLight"
         >
           <ul class="todo-list"></ul>
           <div
-            class="flex justify-between items-center py-[10px] px-4 text-lGrayBlue text-sm md:text-[10px] lg:text-sm"
+            class="flex justify-between items-center py-[10px] px-4 text-lGrayBlue dark:text-textDarkInLight text-sm md:text-[10px] lg:text-sm"
           >
             <p class="items-left font-bold">0 items left</p>
             <ul
-              class="filter-list hidden md:flex bg-listBgColor flex justify-center gap-4"
+              class="filter-list hidden md:flex bg-listBgColor dark:bg-listBgColorLight flex justify-center gap-4"
             >
               <li
-                class="active cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+                class="active cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover dark:[&:not(.active)]:hover:text-lGrayLightHover"
                 data-status=""
               >
                 All
               </li>
               <li
-                class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+                class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover dark:[&:not(.active)]:hover:text-lGrayLightHover"
                 data-status="active"
               >
                 Active
               </li>
               <li
-                class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+                class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover dark:[&:not(.active)]:hover:text-lGrayLightHover"
                 data-status="completed"
               >
                 Completed
               </li>
             </ul>
             <button
-              class="font-bold hover:text-lGrayBlueHover"
+              class="font-bold hover:text-lGrayBlueHover dark:hover:text-lGrayLightHover"
               type="button"
               id="clear-completed-btn"
             >
@@ -113,22 +124,22 @@
         </div>
 
         <ul
-          class="filter-list md:hidden w-full mt-7 bg-listBgColor rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue"
+          class="filter-list md:hidden w-full mt-7 bg-listBgColor dark:bg-listBgColorLight rounded-md px-5 py-4 flex justify-center gap-4 text-lGrayBlue dark:text-textDarkInLight"
         >
           <li
-            class="active cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+            class="active cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover dark:[&:not(.active)]:hover:text-lGrayLightHover"
             data-status=""
           >
             All
           </li>
           <li
-            class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+            class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover dark:[&:not(.active)]:hover:text-lGrayLightHover"
             data-status="active"
           >
             Active
           </li>
           <li
-            class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover"
+            class="cursor-pointer font-bold [&:not(.active)]:hover:text-lGrayBlueHover dark:[&:not(.active)]:hover:text-lGrayLightHover"
             data-status="completed"
           >
             Completed
